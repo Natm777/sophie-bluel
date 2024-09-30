@@ -52,6 +52,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: white;
 }
 header {
 	display: flex;
@@ -186,3 +187,337 @@ footer nav ul {
 	margin: 2em
 }
 
+.filters {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.filter-btn {
+    background-color: #ffffff;
+    border: 2px solid #1D6154;
+    padding: 10px 20px;
+    margin: 0 10px;
+    color: #1D6154;
+   	font-size: 17px;
+    font-family: 'Syne';
+    font-weight: 700;
+    border-radius: 20px;
+
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* Page de connexion */
+
+body.login-page {
+    background-color: #FFFEF8 !important; /* Forcing the background to apply */
+}
+
+nav ul li.active-link {
+    font-weight: bold;
+    color: #000000; /* Make the text black */
+}
+
+/* Full page container for vertical and horizontal centering */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full-screen height to vertically center the form */
+}
+
+/* Container for the form */
+.login-container {
+    width: 350px; /* Adjusted width for better form structure */
+    padding: 40px;
+    text-align: center;
+}
+
+h2 {
+    color: #1D6154;
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-family: 'Syne', sans-serif; /* Adjusted font family */
+}
+
+/* Input Group Styling */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #444;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ffffff;
+    border-radius: 0px; /* No rounded corners, making the input squared */
+    background-color: #ffffff; /* Ensuring the input field background is white */
+    font-size: 14px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+
+/* Login button style */
+.login-button {
+    width: 70%; /* Make the button smaller than the input fields */
+    padding: 12px; /* Adjust padding for proper size */
+    background-color: #1D6154;
+    border: none;
+    border-radius: 50px; /* Rounded button style */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 8px 20px rgba(32, 90, 61, 0.2); /* Button shadow */
+    margin-top: 10px; /* Add space above the button */
+}
+
+.login-button:hover {
+    background-color: #1b5032; /* Darker shade on hover */
+    box-shadow: 0 10px 30px rgba(32, 90, 61, 0.3); /* Shadow grows on hover */
+}
+
+/* Forgot password link */
+.forgot-password {
+    display: block;
+    margin-top: 20px;
+    color: #3D3D3D;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+
+#error-message {
+	color: red;
+	margin-top: 10px;
+} 
+
+
+/*Mode edition*/
+#mode-edition {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    position: fixed; /* Bannière fixée en haut */
+    top: 0;
+    left: 0;
+    width: 100%; /* Couvre toute la largeur */
+    text-align: center;
+    z-index: 10; /* Au-dessus du contenu */
+}
+
+.projects-header {
+	display: flex;
+	align-items: baseline;
+	justify-content: center; /* Centre le contenu horizontalement */
+	gap: 10px; /* Espace entre le titre et le bouton */
+	margin-bottom: 20px;
+  }
+  
+  #modifier-button {
+	background-color: transparent;
+	color: #3D3D3D;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+  }
+  
+  #modifier-button i {
+	margin-right: 5px;
+  }
+ 
+/*Modale*/
+
+*:focus{
+	box-shadow: 0 0 10px #1D6154;
+}
+
+
+.modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	animation: fadeIn .3s both  ;
+	
+}
+
+.modal-wrapper {
+	overflow: auto;
+	width: 600px;
+	background-color: white;
+	padding: 20px;
+	max-width: calc(100vw - 40px);
+	min-height: 70%;
+	max-height: calc(100vh - 40px);
+	position: relative;
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	animation: slideFromTop .3s both;
+	
+}
+
+.modal[aria-hidden="true"] {
+	animation-name: fadeOut;
+}
+
+.modal[aria-hidden="true"] .modal-wrapper {
+	animation-name: slideToBottom;
+}
+
+@keyframes fadeIn {
+
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
+
+@keyframes fadeOut {
+
+	from {opacity: 1;}
+	to {opacity: 0;}
+}
+
+
+@keyframes slideFromTop {
+
+	from {transfrom: translateY(-50px);}
+	to {transfrom: translateY(0px);}
+}
+
+@keyframes slideToBottom {
+
+	from {transfrom: translateY(0px);}
+	to {transfrom: translateY(50px);}
+}
+
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+  }
+
+
+#modaltitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	font-family: 'Work Sans';
+	color: #000000;
+	font-size: 26px;
+	width: 100%;
+	padding-right: 40px; 
+	padding-top: 40px;
+	font-weight: 300;
+  }
+  
+.close-button {
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	position: absolute;
+	top: 5px;
+	right: 30px; 
+	padding-top: 20px;
+  }
+
+  
+  .close-button i {
+	color: black;
+  }
+  
+  .photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+	padding-top: 20px;
+	padding-left: 70px;
+	padding-right: 70px;
+}
+
+.photo-gallery figure {
+    position: relative;
+}
+
+.photo-gallery img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.delete-button {
+    position: absolute;
+    top: 5px; 
+    right: 5px;
+    background-color: black;
+    border: none;
+    color: white;
+    font-size: 9px;
+    border-radius: 2px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.modal-line {
+    width: 77%; /* Adjust width to make the line shorter */
+    height: 1px;
+    background-color: #B3B3B3;
+    margin: 0 auto 20px; /* Ensures the line is centered and has space below it */
+}
+
+.modal-footer {
+    margin-top: auto;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-photo-button {
+    display: block;
+    width: 40%;
+    padding: 10px;
+    background-color: #1D6154;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px;
+	font-family: 'Syne';
+	font-weight: 300;
+	text-decoration: none;
+}
