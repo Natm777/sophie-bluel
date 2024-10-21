@@ -6,17 +6,17 @@ async function getProjets() {
     projets = await response.json();
 
     createProjets();
-    createButtonsFilter(); // Assurez-vous que les boutons sont créés après le chargement des projets
+    createButtonsFilter(); 
 }
 
 function createProjets() {
     const sectionGallery = document.querySelector(".gallery");
-    sectionGallery.innerHTML = ''; // Efface le contenu précédent
+    sectionGallery.innerHTML = ''; 
 
     for (let i = 0; i < projets.length; i++) {
         const projet = projets[i];
         const projetElement = document.createElement("figure");
-        projetElement.dataset.categoryId = projet.categoryId; // Ajout de l'attribut data-category-id
+        projetElement.dataset.categoryId = projet.categoryId; 
 
         const imageElement = document.createElement("img");
         imageElement.src = projet.imageUrl;
@@ -77,7 +77,7 @@ getProjets();
 
 //Mode édition
 document.getElementById("login").addEventListener("click", function() {
-    window.location.href = "connexion.html"; // Redirige vers la page de connexion
+    window.location.href = "connexion.html"; // Rediriger vers la page de connexion
 });
 
 const token = localStorage.getItem('token')
@@ -104,10 +104,6 @@ const token = localStorage.getItem('token')
 
 //Boite Modal
 let modal = document.querySelector('.modal') 
-const focusableSelector = 'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
-let focusables = []
-let previouslyFocusedElement = null
-
 
 //Ouvrir la modale
 const openModal = async function (e) {
@@ -122,13 +118,11 @@ const openModal = async function (e) {
     modalContent = modal.querySelector(target).style.display = 'block'
 
     createModalProjects();
-    focusables = Array.from(modal.querySelectorAll(focusableSelector))
-    console.log('Focusable elements:', focusables);
-    previouslyFocusedElement = document.querySelectorAll(':focus')
+    
     modal.style.display = null
     modal.removeAttribute("aria-hidden")
     modal.setAttribute('aria-modal', true);
-    focusables[0].focus();
+    
 
     modal.addEventListener('click', closeModal)
     modal.querySelectorAll('.js-modal-close').forEach(item => {
@@ -137,20 +131,20 @@ const openModal = async function (e) {
     modal.querySelectorAll('.js-modal-stop').forEach(item => {
         item.addEventListener('click', stopPropagation)
     });
-    modal.addEventListener('keydown', focusInModal) 
+    
     
 }
 
-// Function to handle back button and return to the first modal
+// Function pour gèrer le bouton back et revenir à  la première modale
 const goBackToFirstModal = function (e) {
     e.preventDefault();
 
-    // Hide the second modal and show the first modal
-    document.getElementById('modal2').style.display = 'none'; // Hide modal2
-    document.getElementById('modal1').style.display = 'block'; // Show modal1
+    // Cache la première modale et affiche la deuxième
+    document.getElementById('modal2').style.display = 'none'; // Cache modal2
+    document.getElementById('modal1').style.display = 'block'; // Montre modal1
 }
 
-// Add event listener to the back arrow button
+// Ajoute un écouteur d'événement pour le bouton back
 document.querySelector('.back-button').addEventListener('click', goBackToFirstModal);
 
 
@@ -166,35 +160,14 @@ const closeModal = function (e) {
     modal.removeEventListener('click', closeModal)
     modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
-    modal.removeEventListener('keydown', focusInModal) 
-
-    if (previouslyFocusedElement !== null) previouslyFocusedElement[0].focus()
+    
+    
 }
 
 const stopPropagation = function (e) {	
     e.stopPropagation()
 }
 
-const focusInModal = function (e) {
-    if (e.key === 'Tab'){
-    e.preventDefault()
-    let index = focusables.findIndex(f => f === document.activeElement)
-    if (e.shiftKey === true) {
-        index--
-    } else {
-        index++
-    }
-    if (index >= focusables.length) {
-        index = 0
-    }
-
-    if (index < 0) {
-        index = focusables.length - 1
-    }
-
-    focusables[index].focus()
-    }
-}
 
 const loadModal = async function (url) {
     const target = '#' + url.split('#')[1]
@@ -257,7 +230,7 @@ document.getElementById("photo-upload").addEventListener("change", function(even
             const previewImage = document.getElementById("image-preview");
             const previewContainer = document.querySelector('.upload-preview');
             
-            // Show the preview image
+            // Montrer le preview de l'image
             previewImage.src = reader.result;
             previewImage.style.display = 'block';
             previewImage.classList.add('active'); // Add the class for active styling
@@ -330,7 +303,7 @@ function addProjectToGallery(project) {
     figure.dataset.categoryId = project.categoryId; // Utilise l'ID de la catégorie
 
     const img = document.createElement("img");
-    img.src = project.imageUrl; // Assurez-vous que l'API renvoie l'URL de l'image
+    img.src = project.imageUrl; // S'assurer que l'API renvoie l'URL de l'image
 
     const figcaption = document.createElement("figcaption");
     figcaption.innerText = project.title;
