@@ -4,6 +4,7 @@ let projets = [];
 async function getProjets() {
     const response = await fetch('http://localhost:5678/api/works');
     projets = await response.json();
+
     createProjets();
     createButtonsFilter(); // Assurez-vous que les boutons sont créés après le chargement des projets
 }
@@ -30,9 +31,10 @@ function createProjets() {
 }
 
 async function createButtonsFilter(works) {
-    const response = await fetch('http://localhost:5678/api/categories');
-    const categories = await response.json();
-
+   const response = await fetch('http://localhost:5678/api/categories');
+   const categories = await response.json();
+   
+   filterContainer.innerHTML = '';
     //Création du bouton "Tous"
     const allCategories = document.createElement('button');
     allCategories.classList.add("filter-btn");
@@ -78,7 +80,7 @@ document.getElementById("login").addEventListener("click", function() {
     window.location.href = "connexion.html"; // Redirige vers la page de connexion
 });
 
-const token = localStorage.getItem("token");
+const token = localStorage.getItem('token')
 
     const modeEdition = document.getElementById("mode-edition");
     const modifierButton = document.getElementById("modifier-button");
@@ -101,20 +103,23 @@ const token = localStorage.getItem("token");
 });
 
 //Boite Modal
-let modal = null 
+let modal = document.querySelector('.modal') 
 const focusableSelector = 'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
 let focusables = []
 let previouslyFocusedElement = null
 
+
+//Ouvrir la modale
 const openModal = async function (e) {
     e.preventDefault();
+
+    await getProjets();
+    
     const target = e.target.getAttribute("href")
-    if (target.startsWith('#')) {
-        modal = document.querySelector(target)
-    } else {
-        modal = await loadModal(target)
-        console.log(modal)
-    }
+    modal.querySelectorAll('.modal-wrapper').forEach( content => {
+        content.style.display = 'none'
+    })
+    modalContent = modal.querySelector(target).style.display = 'block'
 
     createModalProjects();
     focusables = Array.from(modal.querySelectorAll(focusableSelector))
@@ -122,24 +127,41 @@ const openModal = async function (e) {
     previouslyFocusedElement = document.querySelectorAll(':focus')
     modal.style.display = null
     modal.removeAttribute("aria-hidden")
-    modal.setAttribute('aria-modal', true)
-    modal.addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-    modal.addEventListener('keydown', focusInModal) 
+    modal.setAttribute('aria-modal', true);
     focusables[0].focus();
 
+    modal.addEventListener('click', closeModal)
+    modal.querySelectorAll('.js-modal-close').forEach(item => {
+        item.addEventListener('click', closeModal)
+    })
+    modal.querySelectorAll('.js-modal-stop').forEach(item => {
+        item.addEventListener('click', stopPropagation)
+    });
+    modal.addEventListener('keydown', focusInModal) 
     
 }
 
+// Function to handle back button and return to the first modal
+const goBackToFirstModal = function (e) {
+    e.preventDefault();
+
+    // Hide the second modal and show the first modal
+    document.getElementById('modal2').style.display = 'none'; // Hide modal2
+    document.getElementById('modal1').style.display = 'block'; // Show modal1
+}
+
+// Add event listener to the back arrow button
+document.querySelector('.back-button').addEventListener('click', goBackToFirstModal);
+
+
+//Fermer la modale
 const closeModal = function (e) {
     if (modal === null) return
-    
-    console.log(modal)
     e.preventDefault()
 
     
     modal.setAttribute("aria-hidden", 'true')
+    modal.style.display = 'none'
     modal.removeAttribute('aria-modal')
     modal.removeEventListener('click', closeModal)
     modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
@@ -147,8 +169,6 @@ const closeModal = function (e) {
     modal.removeEventListener('keydown', focusInModal) 
 
     if (previouslyFocusedElement !== null) previouslyFocusedElement[0].focus()
-    
-    modal = null
 }
 
 const stopPropagation = function (e) {	
@@ -228,6 +248,122 @@ function createModalProjects() {
 }
 
 
+//Preview de l'image
+document.getElementById("photo-upload").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const previewImage = document.getElementById("image-preview");
+            const previewContainer = document.querySelector('.upload-preview');
+            
+            // Show the preview image
+            previewImage.src = reader.result;
+            previewImage.style.display = 'block';
+            previewImage.classList.add('active'); // Add the class for active styling
+            
+            // Hide the upload controls (icon, button, text)
+            previewContainer.querySelector('i').classList.add('hidden-elements');
+            previewContainer.querySelector('label').classList.add('hidden-elements');
+            previewContainer.querySelector('small').classList.add('hidden-elements');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById("add-photo-form").addEventListener("submit", async function(e) {
+    e.preventDefault(); // Empêche la soumission par défaut du formulaire
+    
+    const title = document.getElementById("title").value;
+    const category = document.getElementById("category").value;
+    const photo = document.getElementById("photo-upload").files[0];
+
+    // Vérifier que tous les champs sont remplis
+    if (!title || !category || !photo) {
+        alert("Veuillez remplir tous les champs et ajouter une image.");
+        return;
+    }
+
+    // Création d'un objet FormData pour l'envoi des données multipart/form-data
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("image", photo);
+
+    try {
+        // Envoi des données au back-end
+        const response = await fetch('http://localhost:5678/api/works', {
+            method: "POST",
+            headers: {
+                'Authorization': `Bearer ${token}` // Remplacez par le bon token
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            const newProject = await response.json();
+
+            // Ajouter le nouveau projet à la galerie
+            addProjectToGallery(newProject);
+
+            // Ajouter également le nouveau projet dans la modale
+            addProjectToModal(newProject);
+
+            document.getElementById("add-photo-form").reset(); 
+
+            // Fermer la modale après soumission
+            closeModal(e);
+        } else {
+            alert("Erreur lors de l'ajout du projet.");
+        }
+    } catch (error) {
+        console.error("Erreur:", error);
+        alert("Une erreur s'est produite lors de l'ajout du projet.");
+    }
+});
+
+
+function addProjectToGallery(project) {
+    const gallery = document.querySelector(".gallery");
+    
+    const figure = document.createElement("figure");
+    figure.dataset.categoryId = project.categoryId; // Utilise l'ID de la catégorie
+
+    const img = document.createElement("img");
+    img.src = project.imageUrl; // Assurez-vous que l'API renvoie l'URL de l'image
+
+    const figcaption = document.createElement("figcaption");
+    figcaption.innerText = project.title;
+
+    figure.appendChild(img);
+    figure.appendChild(figcaption);
+    gallery.appendChild(figure);
+}
+
+function addProjectToModal(project) {
+    const sectionWorks = document.querySelector(".photo-gallery");
+
+    const figure = document.createElement("figure");
+    figure.dataset.categoryId = project.categoryId;
+
+    const img = document.createElement("img");
+    img.src = project.imageUrl;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-button");
+    deleteButton.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+    figure.appendChild(deleteButton);
+    figure.appendChild(img);
+
+    sectionWorks.appendChild(figure);
+
+    // Ajouter l'écouteur pour la suppression si nécessaire
+    deleteButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        deleteProjet(project.id);
+    });
+}
+
 async function deleteProjet(projetId) {
 const response= await fetch(`http://localhost:5678/api/works/${projetId}`, {
 method: 'DELETE',
@@ -242,9 +378,3 @@ if (response.status === 204) {
 }
 
 }
-
-
-
-
-
-

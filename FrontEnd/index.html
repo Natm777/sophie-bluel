@@ -69,15 +69,15 @@
           >
             <i class="fa-regular fa-pen-to-square"></i> modifier
           </a>
+
           <aside
-            id="modal1"
             class="modal"
             aria-hidden="true"
             role="dialog"
             aria-labelledby="modaltitle"
             style="display: none"
           >
-            <div class="modal-wrapper js-modal-stop">
+            <div class="modal-wrapper js-modal-stop" id="modal1">
               <div class="modal-header">
                 <h1 id="modaltitle">Galerie photo</h1>
                 <button class="close-button js-modal-close">
@@ -87,10 +87,73 @@
               <div class="photo-gallery"></div>
               <div class="modal-footer">
                 <div class="modal-line"></div>
-                <a href="modal.html#modal2" class="add-photo-button js-modal"
+                <a href="#modal2" class="add-photo-button js-modal"
                   >Ajouter une photo</a
                 >
               </div>
+            </div>
+
+            <div class="modal-wrapper js-modal-stop" id="modal2">
+              <div class="modal-header">
+                <div class="back">
+                  <a href="#modal1" class="back-button js-modal">
+                      <i class="fa-solid fa-arrow-left"></i>
+                  </a>
+                </div>
+                <h1 id="modaltitle">Ajout photo </h1>
+                <button class="close-button js-modal-close">
+                  <i class="fa-solid fa-x"></i>
+                </button> 
+              </div>
+              <form id="add-photo-form" class="add-photo-form">
+                <div class="form-group">
+                  <div class="upload-preview">
+                    <i class="fa-regular fa-image"></i>
+                    <label for="photo-upload" class="btn-add-photo">
+                      + Ajouter photo
+                    </label>
+                    <small class="small-text">jpg, png : 4mo max</small>
+                    <img id="image-preview" alt="Image preview" style="display: none;"/>
+                  </div>
+                  <input
+                    type="file"
+                    id="photo-upload"
+                    name="photo"
+                    accept=".jpg, .png"
+                    style="display: none"
+                  />
+                </div>
+
+                <div class="form-input-group">
+                  <label for="title" class="form-label">Titre</label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    class="form-input"
+                    required
+                  />
+                </div>
+
+                <div class="form-input-group">
+                  <label for="category" class="form-label">Catégorie</label>
+                  <select
+                    id="category"
+                    name="category"
+                    class="form-input"
+                    required
+                  >
+                    <option value="" disabled selected></option>
+                    <option value="1">Objets</option>
+                    <option value="2">Appartements</option>
+                    <option value="3">Hotels & restaurants</option>
+                  </select>
+                </div>
+                <div class="modal-footer-2">
+                  <div class="modal-line-2"></div>
+                  <button class="add-photo-button">Valider</button>
+                </div>
+              </form>
             </div>
           </aside>
         </div>
