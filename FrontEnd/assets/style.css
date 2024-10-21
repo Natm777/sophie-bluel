@@ -206,6 +206,12 @@ footer nav ul {
 
 }
 
+.filter-btn.active {
+    background-color: #1D6154; 
+    color: white; 
+    border: none; 
+}
+
 .hidden {
     display: none;
 }
@@ -270,20 +276,21 @@ h2 {
 }
 
 
-/* Login button style */
+/* Style du bouton de connexion */
 .login-button {
-    width: 70%; /* Make the button smaller than the input fields */
-    padding: 12px; /* Adjust padding for proper size */
+    width: 70%; /* Rendre le bouton plus petit que les champs de saisie */
+    padding: 12px; /* Ajuster le padding pour une taille appropriée */
     background-color: #1D6154;
     border: none;
-    border-radius: 50px; /* Rounded button style */
+    border-radius: 50px; /* Style de bouton arrondi */
     color: white;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
-    box-shadow: 0 8px 20px rgba(32, 90, 61, 0.2); /* Button shadow */
-    margin-top: 10px; /* Add space above the button */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transitions douces */
+    box-shadow: 0 8px 20px rgba(32, 90, 61, 0.2); /* Ombre du bouton */
+    margin-top: 10px; /* Ajouter de l'espace au-dessus du bouton */
 }
+
 
 .login-button:hover {
     background-color: #1b5032; /* Darker shade on hover */

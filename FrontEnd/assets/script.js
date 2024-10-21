@@ -35,12 +35,20 @@ async function createButtonsFilter(works) {
    const categories = await response.json();
    
    filterContainer.innerHTML = '';
+
     //Création du bouton "Tous"
     const allCategories = document.createElement('button');
     allCategories.classList.add("filter-btn");
     allCategories.innerHTML = "Tous";
     filterContainer.appendChild(allCategories);
-    allCategories.addEventListener("click", () => {
+
+    // Ajouter l'eventListener au button "Tous" 
+    allCategories.addEventListener("click", (event) => {
+
+         // Supprimer la classe 'active' de tous les boutons
+         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+         event.target.classList.add('active'); // Ajouter la class "active" au bouton cliqué
+    
         const projets = document.querySelectorAll(".gallery figure"); 
         for (let i = 0; i < projets.length; i++) {
             projets[i].classList.remove("hidden");
@@ -54,7 +62,16 @@ async function createButtonsFilter(works) {
         button.classList.add("filter-btn");
         button.innerHTML = category.name;
         button.dataset.categoryId = category.id;
-        button.addEventListener("click", addFilterEventListener);
+
+         // Ajouter un écouteur d'événement pour chaque bouton
+         button.addEventListener("click", (event) => {
+            addFilterEventListener(event);
+
+            // Supprimer la classe 'active' de tous les boutons
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active'); // Add 'active' class to clicked button
+        });
+
         filterContainer.appendChild(button);
     };
 }
