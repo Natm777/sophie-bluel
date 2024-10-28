@@ -1,44 +1,53 @@
 const filterContainer = document.querySelector(".filters");
 let projets = [];
 
+//1. Récupération des projets depuis le serveur :
 async function getProjets() {
-    const response = await fetch('http://localhost:5678/api/works');
-    projets = await response.json();
+    const response = await fetch('http://localhost:5678/api/works');// Requête API
+    projets = await response.json();// Stockage des projets
 
-    createProjets();
-    createButtonsFilter(); 
+    createProjets(); // Affichage des projets
+    createButtonsFilter(); // Création des boutons de filtre
 }
 
+//2. Affichage des projets dans la galerie :
 function createProjets() {
     const sectionGallery = document.querySelector(".gallery");
     sectionGallery.innerHTML = ''; 
 
     for (let i = 0; i < projets.length; i++) {
         const projet = projets[i];
-        const projetElement = document.createElement("figure");
-        projetElement.dataset.categoryId = projet.categoryId; 
 
+        // Création d'un élément figure pour chaque projet
+        const projetElement = document.createElement("figure");
+        projetElement.dataset.categoryId = projet.categoryId; // Stockage de la catégorie
+
+        // Création de l'image et la légende
         const imageElement = document.createElement("img");
         imageElement.src = projet.imageUrl;
 
         const captionElement = document.createElement("figcaption");
         captionElement.innerText = projet.title;
 
+        // Ajout de l'image et de la légende à la figure
         projetElement.appendChild(imageElement);
         projetElement.appendChild(captionElement);
+
+        // Ajout de la figure à la galerie
         sectionGallery.appendChild(projetElement);
     }
 }
 
+//3. Création des boutons de filtre :
 async function createButtonsFilter(works) {
-   const response = await fetch('http://localhost:5678/api/categories');
+   const response = await fetch('http://localhost:5678/api/categories'); // Requête pour obtenir les catégories
    const categories = await response.json();
    
    filterContainer.innerHTML = '';
 
     //Création du bouton "Tous"
     const allCategories = document.createElement('button');
-    allCategories.classList.add("filter-btn");
+    allCategories.classList.add("filter-btn", "active");
     allCategories.innerHTML = "Tous";
     filterContainer.appendChild(allCategories);
 
@@ -55,7 +64,7 @@ async function createButtonsFilter(works) {
         }
     });
     
-    // Création des autres boutons
+    // Création des boutons pour chaque catégorie
     for (let i = 0; i < categories.length; i++) {
         const category = categories[i];
         const button = document.createElement("button");
@@ -69,13 +78,14 @@ async function createButtonsFilter(works) {
 
             // Supprimer la classe 'active' de tous les boutons
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active'); // Add 'active' class to clicked button
+            event.target.classList.add('active'); 
         });
 
         filterContainer.appendChild(button);
     };
 }
 
+//Gestion de l'affichage des projets en fonction de la catégorie sélectionnée.
 function addFilterEventListener(event) {
     const categoryId = event.target.dataset.categoryId;
     const projets = document.querySelectorAll(".gallery figure");
@@ -104,7 +114,7 @@ const token = localStorage.getItem('token')
     const loginButton = document.getElementById("login");
     const logoutButton = document.getElementById("logout");
 
-    // Si l'utilisateur est connecté, afficher la bannière, le bouton modifier, et remplacer login par logout
+    // // Si l'utilisateur est connecté, on affiche certains éléments
     if (token) {
         modeEdition.style.display = "block"; // Affiche la bannière d'édition
         modifierButton.style.display = "block"; // Affiche le bouton Modifier
@@ -190,7 +200,8 @@ const loadModal = async function (url) {
     const target = '#' + url.split('#')[1]
     const existingModal = document.querySelector(target)
     if (existingModal !== null) return existingModal
-    const html = await fetch(url).then(response => response.text())
+    const response = await fetch(url)
+    const html= await response.text()
     const element = document.createRange().createContextualFragment(html).querySelector(target)
     document.body.append(element)
     return element
@@ -264,6 +275,7 @@ document.getElementById("photo-upload").addEventListener("change", function(even
 document.getElementById("add-photo-form").addEventListener("submit", async function(e) {
     e.preventDefault(); // Empêche la soumission par défaut du formulaire
     
+    //Récupèrer les valeurs des champs du formulaire
     const title = document.getElementById("title").value;
     const category = document.getElementById("category").value;
     const photo = document.getElementById("photo-upload").files[0];
@@ -285,7 +297,7 @@ document.getElementById("add-photo-form").addEventListener("submit", async funct
         const response = await fetch('http://localhost:5678/api/works', {
             method: "POST",
             headers: {
-                'Authorization': `Bearer ${token}` // Remplacez par le bon token
+                'Authorization': `Bearer ${token}` // Verification du token
             },
             body: formData
         });

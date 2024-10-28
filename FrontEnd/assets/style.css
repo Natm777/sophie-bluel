@@ -220,25 +220,25 @@ footer nav ul {
 /* Page de connexion */
 
 body.login-page {
-    background-color: #FFFEF8 !important; /* Forcing the background to apply */
+    background-color: #FFFEF8 !important;
 }
 
 nav ul li.active-link {
     font-weight: bold;
-    color: #000000; /* Make the text black */
+    color: #000000; 
 }
 
-/* Full page container for vertical and horizontal centering */
+/* Conteneur pleine page pour le centrage vertical et horizontal */
 .center-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full-screen height to vertically center the form */
+    height: 100vh; /* Hauteur plein écran pour centrer verticalement le formulaire */
 }
 
-/* Container for the form */
+/* Conteneur pour le formulaire */
 .login-container {
-    width: 350px; /* Adjusted width for better form structure */
+    width: 350px; /* Largeur ajustée pour une meilleure structure du formulaire */
     padding: 40px;
     text-align: center;
 }
@@ -247,10 +247,10 @@ h2 {
     color: #1D6154;
     font-size: 30px;
     margin-bottom: 20px;
-    font-family: 'Syne', sans-serif; /* Adjusted font family */
+    font-family: 'Syne', sans-serif;
 }
 
-/* Input Group Styling */
+/* Style du groupe de champs de saisie */
 .input-group {
     position: relative;
     margin-bottom: 20px;
@@ -268,11 +268,10 @@ h2 {
     width: 100%;
     padding: 12px;
     border: 1px solid #ffffff;
-    border-radius: 0px; /* No rounded corners, making the input squared */
-    background-color: #ffffff; /* Ensuring the input field background is white */
+    border-radius: 0px; /* Pas de coins arrondis, rendant le champ de saisie carré */
+    background-color: #ffffff; /* Assurer que le fond du champ de saisie est blanc */
     font-size: 14px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-
 }
 
 
@@ -293,11 +292,11 @@ h2 {
 
 
 .login-button:hover {
-    background-color: #1b5032; /* Darker shade on hover */
-    box-shadow: 0 10px 30px rgba(32, 90, 61, 0.3); /* Shadow grows on hover */
+    background-color: #1b5032; /* Teinte plus foncée au survol */
+    box-shadow: 0 10px 30px rgba(32, 90, 61, 0.3); /* L'ombre grandit au survol */
 }
 
-/* Forgot password link */
+/* Lien mot de passe oublié */
 .forgot-password {
     display: block;
     margin-top: 20px;
@@ -349,8 +348,7 @@ h2 {
 	margin-right: 5px;
   }
  
-/*Modale*/
-
+/*Modal*/
 
 .modal {
 	display: flex;
@@ -368,7 +366,6 @@ h2 {
 }
 
 .modal-wrapper {
-	/*overflow: auto;*/
 	width: 630px;
 	height: 670px;
 	background-color: white;
@@ -497,10 +494,10 @@ h2 {
 }
 
 .modal-line {
-    width: 77%; /* Adjust width to make the line shorter */
+    width: 77%; /* Ajuster la largeur pour rendre la ligne plus courte */
     height: 1px;
     background-color: #B3B3B3;
-    margin: 0 auto 20px; /* Ensures the line is centered and has space below it */
+    margin: 0 auto 20px; /* Assure que la ligne est centrée et a de l'espace en dessous */
 }
 
 .modal-footer {
@@ -557,20 +554,20 @@ h2 {
     padding-right: 70px;
 }
 
-/* Upload preview styles */
+/* Styles de l'aperçu de téléchargement */
 .upload-preview {
     background-color: #E8F1F6;
     padding: 30px;
     border-radius: 8px;
     text-align: center;
-    width: 420px;  /* Set the width */
-    height: 169px; /* Set the height */
+    width: 420px;  
+    height: 169px; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-  }
+}
 
 
 
@@ -584,13 +581,13 @@ h2 {
   }
 
 .upload-preview img.active {
-    display: block; /* Show the preview when available */
-  }
+    display: block; /* Afficher l'aperçu lorsqu'il est disponible */
+}
 
 .upload-preview .hidden-elements {
-    display: none; /* Hide elements when the image is previewed */
-  }
-  
+    display: none; /* Masquer les éléments lorsque l'image est prévisualisée */
+}
+
 .upload-preview i {
     font-size: 76px;
     color: #B9C5CC;
@@ -601,15 +598,14 @@ h2 {
 #image-preview {
     height: 136%;
     max-width: 100%;
-    object-fit: cover; /* Ensures the image covers the area and is cropped if needed */
-    display: none; /* Hide initially until an image is selected */
-    
+    object-fit: cover; /* Assure que l'image couvre la zone et est recadrée si nécessaire */
+    display: none; /* Masquer initialement jusqu'à ce qu'une image soit sélectionnée */
 }
 
 .btn-add-photo {
-    display: flex; /* Use flexbox for alignment */
-    justify-content: center; /* Center the text horizontally */
-    align-items: center; /* Center the text vertically */
+    display: flex; /* Utiliser flexbox pour l'alignement */
+    justify-content: center; /* Centrer le texte horizontalement */
+    align-items: center; /* Centrer le texte verticalement */
     background-color: #D9E3E9;
     border-radius: 30px;
     color: #306685;
@@ -619,7 +615,6 @@ h2 {
     width: 173px;
     height: 36px;
 }
-
 
 /* Form input group */
 .form-input-group {
@@ -648,7 +643,7 @@ h2 {
     box-shadow: 0px 4px 14px 0px #00000017;
     border-color: #ffffff;
     -webkit-appearance: none;
-    /*Ensuresselectdropdownhassameappearance*/-moz-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     outline: none;
     -webkit-border-radius: 0px;
@@ -657,7 +652,7 @@ h2 {
     -o-border-radius: 0px;
 }
 
-/* Specific styling for the "Catégorie" field */
+/* Style spécifique pour le champ "Catégorie" */
 #category {
     width: 99%;
     -webkit-appearance: none;
@@ -667,8 +662,8 @@ h2 {
     padding: 12px;
     font-size: 14px;
     
-    /* Background arrow */
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDEwIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTkgMUw1IDVMMiAxIiBzdHJva2U9IiM2NjYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtY29sbGVyPSIjNjY2Ii8+PC9zdmc+');
+    /* Flèche de fond */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDEwIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTkgMUw1IDVMMiAxIiBzdHJva2U9IiM2NjYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtY29sb3I9IiM2NjYiLz48L3N2Zz4=');
     background-position: right 10px center;
     background-repeat: no-repeat;
     background-size: 10px 6px;
