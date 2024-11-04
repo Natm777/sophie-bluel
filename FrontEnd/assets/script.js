@@ -55,12 +55,17 @@ async function createButtonsFilter(works) {
     allCategories.addEventListener("click", (event) => {
 
          // Supprimer la classe 'active' de tous les boutons
-         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-         event.target.classList.add('active'); // Ajouter la class "active" au bouton cliqué
+         const filterButtons = document.querySelectorAll('.filter-btn');
+            for (let i = 0; i < filterButtons.length; i++) {
+            filterButtons[i].classList.remove('active');
+            }
+         // Ajouter la class "active" au bouton cliqué
+         event.target.classList.add('active'); 
     
-        const projets = document.querySelectorAll(".gallery figure"); 
-        for (let i = 0; i < projets.length; i++) {
-            projets[i].classList.remove("hidden");
+         // Sélectionner tous les éléments <figure> dans la galerie
+         const projets = document.querySelectorAll(".gallery figure"); 
+            for (let i = 0; i < projets.length; i++) {
+            projets[i].classList.remove("hidden"); // Supprimer la classe 'hidden' de chaque élément <figure>
         }
     });
     
@@ -77,8 +82,12 @@ async function createButtonsFilter(works) {
             addFilterEventListener(event);
 
             // Supprimer la classe 'active' de tous les boutons
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active'); 
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            for (let i = 0; i < filterButtons.length; i++) {
+                filterButtons[i].classList.remove('active');
+            }
+            // Ajouter la class "active" au bouton cliqué
+            event.target.classList.add('active');  
         });
 
         filterContainer.appendChild(button);
@@ -90,13 +99,13 @@ function addFilterEventListener(event) {
     const categoryId = event.target.dataset.categoryId;
     const projets = document.querySelectorAll(".gallery figure");
 
-    projets.forEach(projet => {
-        if (projet.dataset.categoryId !== categoryId) {
-            projet.classList.add("hidden");
+    for (let i = 0; i < projets.length; i++) {
+        if (projets[i].dataset.categoryId !== categoryId) {
+            projets[i].classList.add("hidden");
         } else {
-            projet.classList.remove("hidden");
+            projets[i].classList.remove("hidden");
         }
-    });
+    }
 }
 
 getProjets();
@@ -107,8 +116,10 @@ document.getElementById("login").addEventListener("click", function() {
     window.location.href = "connexion.html"; // Rediriger vers la page de connexion
 });
 
+// Récupérer le token de l'utilisateur depuis le stockage local
 const token = localStorage.getItem('token')
 
+    // Sélectionner les éléments du DOM nécessaires pour le mode édition
     const modeEdition = document.getElementById("mode-edition");
     const modifierButton = document.getElementById("modifier-button");
     const loginButton = document.getElementById("login");
