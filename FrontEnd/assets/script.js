@@ -1,4 +1,4 @@
-const filterContainer = document.querySelector(".filters");
+const filterContainer = document.querySelector(".filters"); // Sélectionner le conteneur des boutons de filtre
 let projets = [];
 
 //1. Récupération des projets depuis le serveur :
